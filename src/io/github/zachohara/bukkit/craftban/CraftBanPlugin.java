@@ -23,7 +23,11 @@ import io.github.zachohara.bukkit.common.command.CommandExecutables;
 import io.github.zachohara.bukkit.common.command.CommandRules;
 import io.github.zachohara.bukkit.common.plugin.CommonPlugin;
 
-
+/**
+ * The {@code CraftBanPlugin} class is the entry point for plugin.
+ * 
+ * @author Zach Ohara
+ */
 public class CraftBanPlugin extends CommonPlugin {
 	
 	/**
@@ -48,22 +52,6 @@ public class CraftBanPlugin extends CommonPlugin {
 		activePlugin = this;
 		this.populateBannedMaterialsMap();
 		this.getServer().getPluginManager().registerEvents(new MaterialsListener(), this);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Class<? extends CommandRules> getCommandRuleSet() {
-		return Rules.class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Class<? extends CommandExecutables> getCommandExecutableSet() {
-		return Executables.class;
 	}
 	
 	/**
@@ -97,6 +85,22 @@ public class CraftBanPlugin extends CommonPlugin {
 		bannedMaterialsMap.put("crafting", new MaterialsList(this, "banned_crafting.dat"));
 		bannedMaterialsMap.put("smelting", new MaterialsList(this, "banned_smelting.dat"));
 		bannedMaterialsMap.put("smeltfueling", new MaterialsList(this, "banned_smelt_fueling.dat"));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Class<? extends CommandRules> getCommandRuleSet() {
+		return Rules.class;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Class<? extends CommandExecutables> getCommandExecutableSet() {
+		return Executables.class;
 	}
 	
 }
