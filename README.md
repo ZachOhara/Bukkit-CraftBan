@@ -1,5 +1,4 @@
-# Bukkit-CraftBan
-A plugin for Bukkit that adds selective craft protections
+# Bukkit CraftBan
 
 Bukkit CraftBan is a plugin for a Bukkit server that adds the ability for server owners and operators to selectively disallow players from using certain materials in crafting or smelting proceses. It is last confirmed to work on Bukkit version 1.7.9-R2. A full list of commands that this plugin adds is included below.
 
