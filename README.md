@@ -21,34 +21,34 @@ Download the "Location Manager v___.jar" from the root folder of this repository
 
 Usage: `/bancraft <material>`
 
-This command will make it impossible for players to produce the specified material using an in-game crafting table or workbench. It is usable only by server owners and server operators.
+This command will make it impossible for players to produce the specified material using an in-game crafting table or workbench. It is usable only by server owners and server operators. If the material is already banned when the command is run, the material will be un-banned.
 
 ### BanSmelt
 
 Usage: `/bansmelt <material>`
 
-This command will make it impossible for players to use the specified material in a furnace in order to produce something else. It is usable only by server owners and server operators.
+This command will make it impossible for players to use the specified material in a furnace in order to produce something else. It is usable only by server owners and server operators. If the material is already banned when the command is run, the material will be un-banned.
 
-### BanCraft
+### BanFuel
 
 Usage: `/banfuel <material>`
 
-This command will make it impossible for players to use the specified material as fuel in any smelting operation. It is usable only by server owners and server operators.
+This command will make it impossible for players to use the specified material as fuel in any smelting operation. It is usable only by server owners and server operators. If the material is already banned when the command is run, the material will be un-banned.
 
 ### BannedCraftList
 
-Usage: `/bannedcraftlist` or `/bancraftlist`
+Usage: `/bannedcraftlist` or `/bancraftlist` or `/craftbanlist`
 
 This command will provide a list of all the materials that are currently blocked from being crafted.
 
 ### BannedSmeltList
 
-Usage: `/bannedsmeltlist` or `/bansmeltlist`
+Usage: `/bannedsmeltlist` or `/bansmeltlist` or `/smeltbanlist`
 
 This command will provide a list of all the materials that are currently blocked from being smelted into something else.
 
 ### BannedFuelList
 
-Usage: `/bannedfuellist` or `/banfuellist`
+Usage: `/bannedfuellist` or `/banfuellist` of `/fuelbanlist`
 
 This command will provide a list of all the materials that are currently blocked from being used as fuel in a furnace.
