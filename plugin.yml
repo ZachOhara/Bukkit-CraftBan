@@ -6,23 +6,23 @@ description: A crafting and smelting restriction tool
 author: Zach Ohara
 commands:
   bancraft:
-    description: Ban the given material from being crafted
+    description: Ban or unban the given material from being crafted
     usage: /bancraft <material>
   bansmelt:
-    description: Ban the given material from being smelted into something else
+    description: Ban or unban the given material from being smelted into something else
     usage: /bansmelt <material>
   banfuel:
-    description: Ban the given material from being used as fuel for smelting
+    description: Ban or unban the given material from being used as fuel for smelting
     usage: /banfuel <material>
   bannedcraftlist:
     description: Get the list of materials that are banned form being crafted
     usage: /bannedcraftlist
-    aliases: [bancraftlist]
+    aliases: [bancraftlist, craftbanlist]
   bannedsmeltlist:
     description: Get the list of materials that are banned form being smelted into something else
     usage: /bannedsmelttlist
-    aliases: [bansmeltlist]
+    aliases: [bansmeltlist, smeltbanlist]
   bannedfuellist:
     description: Get the list of materials that are banned form being used as fuel for smelting
     usage: /bannedfuellist
-    aliases: [banfuellist]
+    aliases: [banfuellist, fuelbanlist]
