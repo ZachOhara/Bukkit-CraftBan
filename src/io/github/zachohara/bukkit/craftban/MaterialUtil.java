@@ -47,33 +47,46 @@ public final class MaterialUtil {
 	 * instead of "crafting", etc).
 	 * @return {@code true} if the operation was successful; {@code false} otherwise.
 	 */
-	public static boolean banMaterial(CommandInstance instance, String purpose, String reportPurpose) {
-		String material = instance.getArguments()[0];
-		boolean success = MaterialUtil.banMaterial(purpose, material);
-		if (success) {
-			String name = Material.matchMaterial(material).name();
-			instance.sendMessage("@name(" + name + ") was successfully banned from being " + reportPurpose);
-		} else {
-			instance.sendError("@name(" + material + ") could not be banned from being " + reportPurpose);
+	public static boolean toggleMaterialBan(CommandInstance instance, String purpose, String reportPurpose) {
+		String input = instance.getArguments()[0];
+		Material material = Material.matchMaterial(input);
+		String materialName = null;
+		if (material != null) {
+			materialName = material.name();
+		}
+		int result = MaterialUtil.toggleMaterialBan(purpose, materialName);
+		if (result == 0) {
+			instance.sendError("@name(" + input + ") could not be banned from being " + reportPurpose);
+		} else if (result == 1) {
+			instance.sendMessage("@name(" + materialName + ") was successfully banned from being " + reportPurpose);
+		} else if (result == 2) {
+			instance.sendMessage("@name(" + materialName + ") was successfuly un-banned from being " + reportPurpose);
 		}
 		return true;
 	}
 
 	/**
-	 * Bans a given material from being used for the given purpose.
+	 * Bans a given material from being used for the given purpose, or unbans the material
+	 * if it is already banned when this method is called.
 	 * 
-	 * @param purpose the activity that the now-banned material is not allowed for
+	 * @param purpose the activity that the banned material is not allowed for
 	 * ("crafting" for materials that can't be crafted, etc.).
-	 * @param material the name of the material that should be banned from the given
+	 * @param material the name of the material that should be banned or unbanned from the given
 	 * purpose.
-	 * @return {@code true} if the operation was successful; {@code false} otherwise.
+	 * @return 0 if the operation fails, 1 if the material was previously not banned and now is banned,
+	 * or 2 if the material was previously banned and now is not.
 	 */
-	public static boolean banMaterial(String purpose, String material) {
+	public static int toggleMaterialBan(String purpose, String material) {
 		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
 		if (banned == null) {
-			return true;
+			return 0;
 		}
-		return banned.addMaterial(material);
+		if (banned.removeMaterial(material)) {
+			return 2;
+		} else if (banned.addMaterial(material)) {
+			return 1;
+		}
+		return 0;
 	}
 
 	/**

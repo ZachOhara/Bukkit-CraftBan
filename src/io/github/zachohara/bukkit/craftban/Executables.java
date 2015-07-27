@@ -77,7 +77,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialUtil.banMaterial(instance, "crafting", "crafted");
+			return MaterialUtil.toggleMaterialBan(instance, "crafting", "crafted");
 		}
 		
 	}
@@ -100,7 +100,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialUtil.banMaterial(instance, "smelting", "smelted");
+			return MaterialUtil.toggleMaterialBan(instance, "smelting", "smelted");
 		}
 		
 	}
@@ -123,7 +123,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialUtil.banMaterial(instance, "smeltfueling", "used as fuel for smelting");
+			return MaterialUtil.toggleMaterialBan(instance, "smeltfueling", "used as fuel for smelting");
 		}
 		
 	}
