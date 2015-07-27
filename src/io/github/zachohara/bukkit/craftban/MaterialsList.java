@@ -62,6 +62,18 @@ public class MaterialsList extends PersistentList<Integer> {
 	}
 	
 	/**
+	 * Removes the material with the given name from the list, and returns the sucess of the operation.
+	 * 
+	 * @param name the name of the material to remove.
+	 * @return the success of the operation.
+	 */
+	@SuppressWarnings("deprecation")
+	public boolean removeMaterial(String name) {
+		Material m = Material.matchMaterial(name);
+		return this.remove(m.getId());
+	}
+	
+	/**
 	 * Determines if the list contains the material with the given name. If no material
 	 * exists with the given name, this method will return {@code false}.
 	 * 
@@ -167,7 +179,7 @@ public class MaterialsList extends PersistentList<Integer> {
 	public static boolean banMaterial(String purpose, String material) {
 		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
 		if (banned == null) {
-			return false;
+			return true;
 		}
 		return banned.addMaterial(material);
 	}
