@@ -1,5 +1,5 @@
 name: CraftBan
-version: 0.4
+version: 1.0
 main:  io.github.zachohara.bukkit.craftban.CraftBanPlugin
 depend: [BukkitCommon]
 description: A crafting and smelting restriction tool
