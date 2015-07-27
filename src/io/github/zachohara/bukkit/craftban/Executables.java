@@ -77,7 +77,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.banMaterial(instance, "crafting", "crafted");
+			return MaterialUtil.banMaterial(instance, "crafting", "crafted");
 		}
 		
 	}
@@ -100,7 +100,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.banMaterial(instance, "smelting", "smelted");
+			return MaterialUtil.banMaterial(instance, "smelting", "smelted");
 		}
 		
 	}
@@ -123,7 +123,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.banMaterial(instance, "smeltfueling", "used as fuel for smelting");
+			return MaterialUtil.banMaterial(instance, "smeltfueling", "used as fuel for smelting");
 		}
 		
 	}
@@ -146,7 +146,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.listBannedMaterials(instance, "crafting", "crafted");
+			return MaterialUtil.listBannedMaterials(instance, "crafting", "crafted");
 		}
 		
 	}
@@ -169,7 +169,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.listBannedMaterials(instance, "smelting", "smelted");
+			return MaterialUtil.listBannedMaterials(instance, "smelting", "smelted");
 		}
 		
 	}
@@ -192,7 +192,7 @@ public enum Executables implements CommandExecutables {
 		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialsList.listBannedMaterials(instance, "smeltfueling", "used as fuel for smelting");
+			return MaterialUtil.listBannedMaterials(instance, "smeltfueling", "used as fuel for smelting");
 		}
 		
 	}
