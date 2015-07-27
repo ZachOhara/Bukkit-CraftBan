@@ -66,6 +66,9 @@ public class MaterialsList extends PersistentList<String> {
 	 * @return the success of the operation.
 	 */
 	public boolean removeMaterial(String name) {
+		if (name == null) {
+			return false;
+		}
 		Material m = Material.matchMaterial(name);
 		return this.remove(m.name());
 	}
