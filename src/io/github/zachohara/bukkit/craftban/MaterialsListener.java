@@ -31,18 +31,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * A {@code MaterialsListener} is a {@code Listener} that listens for inventory clicks
- * and crafting, and determines if the given event should be blocked due to banned
- * materials being used.
- * 
+ * A {@code MaterialsListener} is a {@code Listener} that listens for inventory clicks and
+ * crafting, and determines if the given event should be blocked due to banned materials
+ * being used.
+ *
  * @author Zach Ohara
  */
 public class MaterialsListener implements Listener {
-	
+
 	/**
 	 * Checks the situation involved in a {@code CraftItemEvent} to make sure the all the
 	 * involved materials are allowed to be crafted.
-	 * 
+	 *
 	 * @param event the {@code CraftItemEvent} triggered by a player crafting something.
 	 */
 	@EventHandler
@@ -50,30 +50,29 @@ public class MaterialsListener implements Listener {
 		MaterialsList banned = CraftBanPlugin.getBannedList("crafting");
 		Material m = event.getRecipe().getResult().getType();
 		if (banned.containsMaterial(m)) {
-			reportBannedMaterial((Player) event.getWhoClicked(), m.name(), "craft");
+			MaterialsListener.reportBannedMaterial((Player) event.getWhoClicked(), m.name(), "craft");
 			event.setCancelled(true);
 		}
 	}
-	
+
 	/**
-	 * Schedules a task for the next 'tick' that will check the contents of a furnace.
-	 * The scheduling is necessary over checking now, because if the click event was a
-	 * player placing an item into a furnace, the item will not be registered with the
-	 * furnace until the next tick.
-	 * 
-	 * @param event the {@code InventoryClickEvent} triggered by a player clicking
-	 * anywhere in their inventory.
+	 * Schedules a task for the next 'tick' that will check the contents of a furnace. The
+	 * scheduling is necessary over checking now, because if the click event was a player
+	 * placing an item into a furnace, the item will not be registered with the furnace
+	 * until the next tick.
+	 *
+	 * @param event the {@code InventoryClickEvent} triggered by a player clicking anywhere
+	 * in their inventory.
 	 */
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		Bukkit.getScheduler().runTask(CraftBanPlugin.getActivePlugin(),
-				new ScheduledInventoryCheck(event));
+		Bukkit.getScheduler().runTask(CraftBanPlugin.getActivePlugin(), new ScheduledInventoryCheck(event));
 	}
-	
+
 	/**
 	 * Checks that an {@code InventoryClickEvent} does not use banned materials, and
 	 * handles any consequences of an event that <em>does</em> use banned materials.
-	 *  
+	 *
 	 * @param event the event to check.
 	 * @return {@code true} if the event did not involve the use of any banned materials,
 	 * or {@code false} if the event did use banned materials and the consequences were
@@ -83,23 +82,24 @@ public class MaterialsListener implements Listener {
 		if (event.getInventory() instanceof FurnaceInventory) {
 			FurnaceInventory furnace = (FurnaceInventory) event.getInventory();
 			Player p = (Player) event.getWhoClicked();
-			if (!checkItemStackContents("smelting", furnace.getSmelting(), p, "smelt")) {
-				removeOffendingItem(furnace, furnace.getSmelting(), p);
+			if ( !MaterialsListener.checkItemStackContents("smelting", furnace.getSmelting(), p, "smelt")) {
+				MaterialsListener.removeOffendingItem(furnace, furnace.getSmelting(), p);
 				return false;
 			}
-			if (!checkItemStackContents("smeltfueling", furnace.getFuel(), p, "fuel a furnace with")) {
-				removeOffendingItem(furnace, furnace.getFuel(), p);
+			if ( !MaterialsListener.checkItemStackContents("smeltfueling", furnace.getFuel(), p,
+					"fuel a furnace with")) {
+				MaterialsListener.removeOffendingItem(furnace, furnace.getFuel(), p);
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Checks that a given {@code ItemStack} is not banned from the given activity. If
-	 * the {@code ItemStack} is banned, this method will report the misuse to the player
-	 * who attempted the activity, and to all the admins on the server.
-	 * 
+	 * Checks that a given {@code ItemStack} is not banned from the given activity. If the
+	 * {@code ItemStack} is banned, this method will report the misuse to the player who
+	 * attempted the activity, and to all the admins on the server.
+	 *
 	 * @param banlist the name of the activty to check the material against.
 	 * @param stack the material to check.
 	 * @param clicker the player that tried to do the activity.
@@ -113,16 +113,16 @@ public class MaterialsListener implements Listener {
 			String reportActivity) {
 		MaterialsList banned = CraftBanPlugin.getBannedList(banlist);
 		if (stack != null && banned.containsMaterial(stack.getType())) {
-			reportBannedMaterial(clicker, stack.getType().name(), reportActivity);
+			MaterialsListener.reportBannedMaterial(clicker, stack.getType().name(), reportActivity);
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Moves the given {@code ItemStack} out of any given inventory, and into the
-	 * inventory of the given player.
-	 * 
+	 * Moves the given {@code ItemStack} out of any given inventory, and into the inventory
+	 * of the given player.
+	 *
 	 * @param removefrom the {@code Inventory} to remove the {@code ItemStack} from.
 	 * @param stack the {@code ItemStack} to move.
 	 * @param returnto the {@code Player} to move the {@code ItemStack} to.
@@ -131,55 +131,56 @@ public class MaterialsListener implements Listener {
 		returnto.getInventory().addItem(stack);
 		removefrom.remove(stack);
 	}
-	
+
 	/**
 	 * Reports a banned material being used for the given activity, by the given player.
-	 * Appropriate messages will be sent to the offending player, and to the admins of
-	 * the server.
-	 * 
+	 * Appropriate messages will be sent to the offending player, and to the admins of the
+	 * server.
+	 *
 	 * @param clicker the {@code Player} that tried to use the given banned material.
 	 * @param material the name of the material that was used.
 	 * @param reportActivity the activity that the player attempted but was blocked from.
 	 */
 	private static void reportBannedMaterial(Player clicker, String material, String reportActivity) {
-		String playerReport = StringUtil.parseError("You cannot " + reportActivity
-				+ " @name(" + material + ")!", null);
-		String adminReport = StringUtil.parseString("@name(" + clicker.getName()
-				+ ") tried to " + reportActivity + " @name(" + material + ")!", null);
+		String playerReport =
+				StringUtil.parseError("You cannot " + reportActivity + " @name(" + material + ")!", null);
+		String adminReport =
+				StringUtil.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
+						+ " @name(" + material + ")!", null);
 		clicker.sendMessage(playerReport);
 		PlayerUtil.sendAllAdmins(adminReport);
 	}
-	
+
 	/**
 	 * A {@code ScheduledInventoryCheck} is constructed with any given
 	 * {@code InventoryClickEvent}. When the {@link #run()} method is called, the event
-	 * will be checked for compliance with the current list of banned materials, and
-	 * any violation will be handled accordingly.
-	 */ 
+	 * will be checked for compliance with the current list of banned materials, and any
+	 * violation will be handled accordingly.
+	 */
 	public static class ScheduledInventoryCheck implements Runnable {
-		
+
 		/**
 		 * The event to check when the {@link #run()} method is called.
 		 */
 		private InventoryClickEvent event;
-		
+
 		/**
 		 * Constructs a new {@code ScheduledInventoryCheck} with the given event to check.
-		 * 
+		 *
 		 * @param event the event to check when the {@link #run()} method is called.
 		 */
 		public ScheduledInventoryCheck(InventoryClickEvent event) {
 			this.event = event;
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
 		public void run() {
-			checkInventoryEvent(this.event);
+			MaterialsListener.checkInventoryEvent(this.event);
 		}
-		
+
 	}
-	
+
 }

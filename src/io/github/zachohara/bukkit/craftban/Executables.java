@@ -24,33 +24,33 @@ import io.github.zachohara.bukkit.common.command.Implementation;
  * The {@code Executables} interface represents the set of commands supported by this
  * plugin, and contains an executable object for each command that acts as the main
  * procedure for the command.
- * 
+ *
  * @author Zach Ohara
  */
 public enum Executables implements CommandExecutables {
-	
+
 	BANCRAFT(new BanCraft()),
 	BANSMELT(new BanSmelt()),
 	BANFUEL(new BanFuel()),
 	BANNEDCRAFTLIST(new BannedCraftList()),
 	BANNEDSMELTLIST(new BannedSmeltList()),
 	BANNEDFUELLIST(new BannedFuelList());
-	
+
 	/**
 	 * The subclass of {@code Implementation} that contains an implementation for the
 	 * command.
 	 */
 	private Implementation implement;
-	
+
 	/**
 	 * Constructs a new constant with the given implementation.
-	 * 
+	 *
 	 * @param implement the implementation of the command.
 	 */
 	private Executables(Implementation implement) {
 		this.implement = implement;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -58,12 +58,12 @@ public enum Executables implements CommandExecutables {
 	public Implementation getImplementation() {
 		return this.implement;
 	}
-	
+
 	/**
 	 * The implementation for the 'bancraft' command.
 	 */
 	private static class BanCraft extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -71,7 +71,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "bancraft";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -79,14 +79,14 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "crafting", "crafted");
 		}
-		
+
 	}
-	
+
 	/**
 	 * The implementation for the 'bansmelt' command.
 	 */
 	private static class BanSmelt extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -94,7 +94,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "bansmelt";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -102,14 +102,14 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "smelting", "smelted");
 		}
-		
+
 	}
-	
+
 	/**
 	 * The implementation for the 'banfuel' command.
 	 */
 	private static class BanFuel extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -117,7 +117,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "banfuel";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -125,14 +125,14 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "smeltfueling", "used as fuel for smelting");
 		}
-		
+
 	}
-	
+
 	/**
 	 * The implementation for the 'bannedcraftlist' command.
 	 */
 	private static class BannedCraftList extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -140,7 +140,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "bannedcraftlist";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -148,14 +148,14 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "crafting", "crafted");
 		}
-		
+
 	}
-	
+
 	/**
 	 * The implementation for the 'bannedsmeltlist' command.
 	 */
 	private static class BannedSmeltList extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -163,7 +163,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "bannedsmeltlist";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -171,14 +171,14 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "smelting", "smelted");
 		}
-		
+
 	}
-	
+
 	/**
 	 * The implementation for the 'bannedfuellist' command.
 	 */
 	private static class BannedFuelList extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -186,7 +186,7 @@ public enum Executables implements CommandExecutables {
 		public String getName() {
 			return "bannedfuellist";
 		}
-		
+
 		/**
 		 * {@inheritDoc}
 		 */
@@ -194,7 +194,7 @@ public enum Executables implements CommandExecutables {
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "smeltfueling", "used as fuel for smelting");
 		}
-		
+
 	}
-	
+
 }

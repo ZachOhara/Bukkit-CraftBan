@@ -16,37 +16,37 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import org.bukkit.Material;
-
 import io.github.zachohara.bukkit.common.persistence.PersistentList;
 import io.github.zachohara.bukkit.common.plugin.CommonPlugin;
 
+import org.bukkit.Material;
+
 /**
- * A {@code MaterialsList} is a {@code PersistentList} that stores an abstract set of
- * block or item materials. This class also contains some static methods that act as easy
+ * A {@code MaterialsList} is a {@code PersistentList} that stores an abstract set of block
+ * or item materials. This class also contains some static methods that act as easy
  * interfaces between the list and the client code.
- * 
+ *
  * @author Zach Ohara
  */
 public class MaterialsList extends PersistentList<String> {
-	
+
 	/**
 	 * Constructs a new {@code MaterialsList} with the given plugin as an owner, and the
 	 * filename to store that data to. This constructor will create a new {@code ArrayList}
 	 * object that will contain the data.
-	 * 
+	 *
 	 * @param owner the plugin that created this object.
 	 * @param filename the filename to store the object as.
 	 */
 	public MaterialsList(CommonPlugin owner, String filename) {
 		super(owner, filename);
 	}
-	
+
 	/**
 	 * Adds the material with the given name to the list, and returns the success of the
 	 * operation. If no material exists with the given name, this method will return
 	 * {@code false}.
-	 * 
+	 *
 	 * @param name the name of the material to add.
 	 * @return the success of the operation.
 	 */
@@ -58,10 +58,11 @@ public class MaterialsList extends PersistentList<String> {
 		this.addSafe(m.name());
 		return true;
 	}
-	
+
 	/**
-	 * Removes the material with the given name from the list, and returns the sucess of the operation.
-	 * 
+	 * Removes the material with the given name from the list, and returns the sucess of
+	 * the operation.
+	 *
 	 * @param name the name of the material to remove.
 	 * @return the success of the operation.
 	 */
@@ -72,11 +73,11 @@ public class MaterialsList extends PersistentList<String> {
 		Material m = Material.matchMaterial(name);
 		return this.remove(m.name());
 	}
-	
+
 	/**
 	 * Determines if the list contains the material with the given name. If no material
 	 * exists with the given name, this method will return {@code false}.
-	 * 
+	 *
 	 * @param name the name of the material to test for.
 	 * @return {@code true} if the given material is in the list; {@code false} otherwise.
 	 */
@@ -87,15 +88,15 @@ public class MaterialsList extends PersistentList<String> {
 		}
 		return this.containsMaterial(m);
 	}
-	
+
 	/**
 	 * Determines if the list contains the given material.
-	 * 
+	 *
 	 * @param m the material to test for.
 	 * @return {@code true} if the given material is in the list; {@code false} otherwise.
 	 */
 	public boolean containsMaterial(Material m) {
 		return m != null && this.contains(m.name());
 	}
-	
+
 }
