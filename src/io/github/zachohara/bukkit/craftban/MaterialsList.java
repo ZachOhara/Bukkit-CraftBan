@@ -18,7 +18,6 @@ package io.github.zachohara.bukkit.craftban;
 
 import org.bukkit.Material;
 
-import io.github.zachohara.bukkit.common.command.CommandInstance;
 import io.github.zachohara.bukkit.common.persistence.PersistentList;
 import io.github.zachohara.bukkit.common.plugin.CommonPlugin;
 
@@ -29,7 +28,7 @@ import io.github.zachohara.bukkit.common.plugin.CommonPlugin;
  * 
  * @author Zach Ohara
  */
-public class MaterialsList extends PersistentList<Integer> {
+public class MaterialsList extends PersistentList<String> {
 	
 	/**
 	 * Constructs a new {@code MaterialsList} with the given plugin as an owner, and the
@@ -51,13 +50,12 @@ public class MaterialsList extends PersistentList<Integer> {
 	 * @param name the name of the material to add.
 	 * @return the success of the operation.
 	 */
-	@SuppressWarnings("deprecation")
 	public boolean addMaterial(String name) {
 		Material m = Material.matchMaterial(name);
 		if (m == null) {
 			return false;
 		}
-		this.addSafe(m.getId());
+		this.addSafe(m.name());
 		return true;
 	}
 	
@@ -67,10 +65,9 @@ public class MaterialsList extends PersistentList<Integer> {
 	 * @param name the name of the material to remove.
 	 * @return the success of the operation.
 	 */
-	@SuppressWarnings("deprecation")
 	public boolean removeMaterial(String name) {
 		Material m = Material.matchMaterial(name);
-		return this.remove(m.getId());
+		return this.remove(m.name());
 	}
 	
 	/**
@@ -94,94 +91,8 @@ public class MaterialsList extends PersistentList<Integer> {
 	 * @param m the material to test for.
 	 * @return {@code true} if the given material is in the list; {@code false} otherwise.
 	 */
-	@SuppressWarnings("deprecation")
 	public boolean containsMaterial(Material m) {
-		return m != null && this.contains(m.getId());
-	}
-	
-	/**
-	 * Retrieves the list of materials, color it correctly, and then return it to the
-	 * sender of the given command.
-	 * 
-	 * @param instance the {@code CommandInstance} that should be responded to.
-	 * @param purpose the activity that the returned list of materials is not allowed
-	 * for ("crafting" for materials that can't be crafted, etc.).
-	 * @param reportPurpose the activity that the returned list of materials is not
-	 * allowed for, but given in a form that will be reported to the user ("craft"
-	 * instead of "crafting", etc).
-	 * @return {@code true} if the operation was successful; {@code false} otherwise.
-	 */
-	@SuppressWarnings("deprecation")
-	public static boolean listBannedMaterials(CommandInstance instance, String purpose, String reportPurpose) {
-		String report = "The following materials cannot be " +  reportPurpose + ": ";
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
-		if (banned == null) {
-			instance.sendError("Could not retrieve the banned materials for " + purpose);
-			return true;
-		}
-		for (int i : banned.listdata()) {
-			String name = Material.getMaterial(i).name();
-			report += "@name(" + name + "), ";
-		}
-		instance.sendMessage(report);
-		return true;
-	}
-	
-	/**
-	 * Bans the given material from the given purpose, and reports the sucess of the
-	 * operation to the given {@code CommandInstance}.
-	 * 
-	 * @param instance the {@code CommandInstance} that should be responded to.
-	 * @param purpose the activity that the returned list of materials is not allowed
-	 * for ("crafting" for materials that can't be crafted, etc.).
-	 * @param reportPurpose the activity that the returned list of materials is not
-	 * allowed for, but given in a form that will be reported to the user ("craft"
-	 * instead of "crafting", etc).
-	 * @return {@code true} if the operation was successful; {@code false} otherwise.
-	 */
-	public static boolean banMaterial(CommandInstance instance, String purpose, String reportPurpose) {
-		String material = instance.getArguments()[0];
-		boolean success = banMaterial(purpose, material);
-		if (success) {
-			String name = Material.matchMaterial(material).name();
-			instance.sendMessage("@name(" + name + ") was successfully banned from being " + reportPurpose);
-		} else {
-			instance.sendError("@name(" + material + ") could not be banned from being " + reportPurpose);
-		}
-		return true;
-	}
-	
-	/**
-	 * Determines if the given material is banned from being used for the given purpose.
-	 * 
-	 * @param purpose the activity that the material should be tested for.
-	 * @param material the name of the material that should tested.
-	 * @return {@code true} if the given material is banned from the given purpose;
-	 * {@code false} otherwise.
-	 */
-	public static boolean isMaterialBanned(String purpose, String material) {
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
-		if (banned == null) {
-			return false;
-		}
-		return banned.containsMaterial(material);
-	}
-	
-	/**
-	 * Bans a given material from being used for the given purpose.
-	 * 
-	 * @param purpose the activity that the now-banned material is not allowed for
-	 * ("crafting" for materials that can't be crafted, etc.).
-	 * @param material the name of the material that should be banned from the given
-	 * purpose.
-	 * @return {@code true} if the operation was successful; {@code false} otherwise.
-	 */
-	public static boolean banMaterial(String purpose, String material) {
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
-		if (banned == null) {
-			return true;
-		}
-		return banned.addMaterial(material);
+		return m != null && this.contains(m.name());
 	}
 	
 }
