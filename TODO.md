@@ -2,3 +2,4 @@
 
 * Maybe move MaterialsList to common
 * Add support for all forms of item production / consumption (eg. brewing, enchanting)
+* Override toString() in all classes
