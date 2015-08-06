@@ -24,8 +24,8 @@ import io.github.zachohara.bukkit.simpleplugin.command.Properties.Source;
 import io.github.zachohara.bukkit.simpleplugin.command.Properties.Target;
 
 /**
- * The {@code Commands} interface represents the set of commands supported by this plugin, and
- * contains a {@code Properties} object for each command.
+ * The {@code Commands} interface represents the set of commands supported by this plugin,
+ * and contains a {@code Properties} object for each command.
  *
  * @author Zach Ohara
  * @see Properties
@@ -38,14 +38,15 @@ public enum Commands implements CommandSet {
 	BANNEDCRAFTLIST(new Properties(0, 0, Source.ALL, Target.NONE, new BannedCraftList())),
 	BANNEDSMELTLIST(new Properties(BANNEDCRAFTLIST, new BannedSmeltList())),
 	BANNEDFUELLIST(new Properties(BANNEDCRAFTLIST, new BannedFuelList()));
-	
+
 	/**
 	 * The {@code Properties} object specific to a single command.
 	 */
 	private Properties properties;
-	
+
 	/**
-	 * Constructs a new {@code Commands} with the given {@code Properties} for this command. 
+	 * Constructs a new {@code Commands} with the given {@code Properties} for this
+	 * command.
 	 *
 	 * @param p the {@code Properties} for this command.
 	 */
@@ -140,7 +141,7 @@ public enum Commands implements CommandSet {
 	 * The implementation for the 'bannedfuellist' command.
 	 */
 	private static class BannedFuelList extends Implementation {
-		
+
 		/**
 		 * {@inheritDoc}
 		 */

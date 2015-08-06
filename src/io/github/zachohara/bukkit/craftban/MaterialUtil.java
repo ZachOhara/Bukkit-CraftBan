@@ -16,12 +16,12 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import io.github.zachohara.bukkit.simpleplugin.command.CommandInstance;
 import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
 import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Material;
 
@@ -158,16 +158,20 @@ public final class MaterialUtil {
 	}
 
 	/**
-	 * Populates the map of banned materials. This method is only called during plugin initialization
+	 * Populates the map of banned materials. This method is only called during plugin
+	 * initialization
 	 *
 	 * @param owner the plugin that owns the banned material data files.
 	 * @see CraftBanPlugin#bannedMaterialsMap
 	 */
 	protected static void populateBannedMaterialsMap(SimplePlugin owner) {
 		MaterialUtil.bannedMaterialsMap = new HashMap<String, PersistentList<Material>>();
-		MaterialUtil.bannedMaterialsMap.put("crafting", new PersistentList<Material>(owner, "banned_crafting.dat"));
-		MaterialUtil.bannedMaterialsMap.put("smelting", new PersistentList<Material>(owner, "banned_smelting.dat"));
-		MaterialUtil.bannedMaterialsMap.put("smeltfueling", new PersistentList<Material>(owner, "banned_smelt_fuel.dat"));
+		MaterialUtil.bannedMaterialsMap.put("crafting", new PersistentList<Material>(owner,
+				"banned_crafting.dat"));
+		MaterialUtil.bannedMaterialsMap.put("smelting", new PersistentList<Material>(owner,
+				"banned_smelting.dat"));
+		MaterialUtil.bannedMaterialsMap.put("smeltfueling", new PersistentList<Material>(owner,
+				"banned_smelt_fuel.dat"));
 	}
 
 }
