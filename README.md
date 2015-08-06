@@ -1,8 +1,8 @@
 # Bukkit CraftBan
 
-Bukkit CraftBan is a plugin for a Bukkit server that adds the ability for server owners and operators to selectively disallow players from using certain materials in crafting or smelting proceses. It is last confirmed to work on Bukkit version 1.7.9-R2. A full list of commands that this plugin adds is included below.
+Bukkit CraftBan is a plugin for a Bukkit server that adds the ability for server owners and operators to selectively disallow players from using certain materials in crafting or smelting proceses. The current version is confirmed to work with Spigot-CraftBukkit version 1.8.8, and will maybe work on later versions without modification. A full list of commands that this plugin adds is included below.
 
-This plugin uses my Bukkit Common Library. The server *must* have that plugin installed for this plugin to work. The Bukkit Common Library can be downloaded from [GitHub](http://github.com/zachohara/bukkit-common)
+This plugin uses my Bukkit SimplePlugin Library. The server *must* have that plugin installed for this plugin to work. SimplePlugin can be downloaded from [GitHub](https://github.com/ZachOhara/Bukkit-SimplePlugin)
 
 Along with all of the source code, in the root folder of this repository you'll find [detailed documentation](javadoc) and a compiled .jar version of the project.
 
@@ -12,7 +12,7 @@ This entire repository is made available under the GNU General Public License v3
 
 ## Installation
 
-Download the "Location Manager v___.jar" from the root folder of this repository, or check out the [releases page](https://github.com/ZachOhara/Bukkit-CraftBan/releases) and download the latest version. Drop either file into the 'plugins' folder on your server.
+Download the "CraftBan v___.jar" from the root folder of this repository, or check out the [releases page](https://github.com/ZachOhara/Bukkit-CraftBan/releases) and download the latest version. Drop either file into the 'plugins' folder on your server.
 
 ## Added Commands:
 
