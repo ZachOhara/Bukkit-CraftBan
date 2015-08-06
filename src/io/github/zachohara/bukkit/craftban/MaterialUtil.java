@@ -16,7 +16,12 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import io.github.zachohara.bukkit.common.command.CommandInstance;
+import java.util.HashMap;
+import java.util.Map;
+
+import io.github.zachohara.bukkit.simpleplugin.command.CommandInstance;
+import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
 
 import org.bukkit.Material;
 
@@ -27,6 +32,13 @@ import org.bukkit.Material;
  * @author Zach Ohara
  */
 public final class MaterialUtil {
+
+	/**
+	 * The collection of banned materials, sorted by banned purpose in the map. Every map
+	 * entry pair consists of a string representing a purpose (eg. "crafting", "smelting",
+	 * etc.) and a {@code MaterialsList} of materials that are banned from that purpose.
+	 */
+	private static Map<String, PersistentList<Material>> bannedMaterialsMap;
 
 	/**
 	 * The {@code MaterialUtil} class should not be instantiable.
@@ -78,14 +90,15 @@ public final class MaterialUtil {
 	 * @return 0 if the operation fails, 1 if the material was previously not banned and
 	 * now is banned, or 2 if the material was previously banned and now is not.
 	 */
-	public static int toggleMaterialBan(String purpose, String material) {
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
+	public static int toggleMaterialBan(String purpose, String materialName) {
+		PersistentList<Material> banned = MaterialUtil.getBannedList(purpose);
+		Material material = Material.matchMaterial(materialName);
 		if (banned == null) {
 			return 0;
 		}
-		if (banned.removeMaterial(material)) {
+		if (banned.remove(material)) {
 			return 2;
-		} else if (banned.addMaterial(material)) {
+		} else if (banned.add(material)) {
 			return 1;
 		}
 		return 0;
@@ -105,13 +118,13 @@ public final class MaterialUtil {
 	 */
 	public static boolean listBannedMaterials(CommandInstance instance, String purpose, String reportPurpose) {
 		String report = "The following materials cannot be " + reportPurpose + ": ";
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
+		PersistentList<Material> banned = MaterialUtil.getBannedList(purpose);
 		if (banned == null) {
 			instance.sendError("Could not retrieve the banned materials for " + purpose);
 			return true;
 		}
-		for (String material : banned.listdata()) {
-			report += "@name(" + material + "), ";
+		for (Material material : banned) {
+			report += "@name(" + material.name() + "), ";
 		}
 		instance.sendMessage(report);
 		return true;
@@ -126,11 +139,35 @@ public final class MaterialUtil {
 	 * {@code false} otherwise.
 	 */
 	public static boolean isMaterialBanned(String purpose, String material) {
-		MaterialsList banned = CraftBanPlugin.getBannedList(purpose);
+		PersistentList<Material> banned = MaterialUtil.getBannedList(purpose);
 		if (banned == null) {
 			return false;
 		}
-		return banned.containsMaterial(material);
+		return banned.contains(material);
+	}
+
+	/**
+	 * Returns the list of materials that are banned from the given purpose.
+	 *
+	 * @param purpose the purpose to query for.
+	 * @return the materials that are banned from the given purpose.
+	 * @see CraftBanPlugin#bannedMaterialsMap
+	 */
+	public static PersistentList<Material> getBannedList(String purpose) {
+		return MaterialUtil.bannedMaterialsMap.get(purpose);
+	}
+
+	/**
+	 * Populates the map of banned materials.
+	 *
+	 * @param owner the plugin that owns the banned material data files.
+	 * @see CraftBanPlugin#bannedMaterialsMap
+	 */
+	protected static void populateBannedMaterialsMap(SimplePlugin owner) {
+		MaterialUtil.bannedMaterialsMap = new HashMap<String, PersistentList<Material>>();
+		MaterialUtil.bannedMaterialsMap.put("crafting", new PersistentList<Material>(owner, "banned_crafting.dat"));
+		MaterialUtil.bannedMaterialsMap.put("smelting", new PersistentList<Material>(owner, "banned_smelting.dat"));
+		MaterialUtil.bannedMaterialsMap.put("smeltfueling", new PersistentList<Material>(owner, "banned_smelt_fuel.dat"));
 	}
 
 }

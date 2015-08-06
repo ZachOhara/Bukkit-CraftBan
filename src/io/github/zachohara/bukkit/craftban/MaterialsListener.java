@@ -16,8 +16,9 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import io.github.zachohara.bukkit.common.util.PlayerUtil;
-import io.github.zachohara.bukkit.common.util.StringUtil;
+import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.util.PlayerUtil;
+import io.github.zachohara.bukkit.simpleplugin.util.StringUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -47,9 +48,9 @@ public class MaterialsListener implements Listener {
 	 */
 	@EventHandler
 	public void onCraftItem(CraftItemEvent event) {
-		MaterialsList banned = CraftBanPlugin.getBannedList("crafting");
+		PersistentList<Material> banned = MaterialUtil.getBannedList("crafting");
 		Material m = event.getRecipe().getResult().getType();
-		if (banned.containsMaterial(m)) {
+		if (banned.contains(m)) {
 			MaterialsListener.reportBannedMaterial((Player) event.getWhoClicked(), m.name(), "craft");
 			event.setCancelled(true);
 		}
@@ -111,8 +112,8 @@ public class MaterialsListener implements Listener {
 	 */
 	private static boolean checkItemStackContents(String banlist, ItemStack stack, Player clicker,
 			String reportActivity) {
-		MaterialsList banned = CraftBanPlugin.getBannedList(banlist);
-		if (stack != null && banned.containsMaterial(stack.getType())) {
+		PersistentList<Material> banned = MaterialUtil.getBannedList(banlist);
+		if (stack != null && banned.contains(stack.getType())) {
 			MaterialsListener.reportBannedMaterial(clicker, stack.getType().name(), reportActivity);
 			return false;
 		}

@@ -1,7 +1,7 @@
 name: CraftBan
-version: 1.0
+version: 2.0
 main:  io.github.zachohara.bukkit.craftban.CraftBanPlugin
-depend: [BukkitCommon]
+depend: [SimplePlugin]
 description: A crafting and smelting restriction tool
 author: Zach Ohara
 commands:
