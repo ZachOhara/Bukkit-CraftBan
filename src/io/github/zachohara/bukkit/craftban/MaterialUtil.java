@@ -85,8 +85,8 @@ public final class MaterialUtil {
 	 *
 	 * @param purpose the activity that the banned material is not allowed for ("crafting"
 	 * for materials that can't be crafted, etc.).
-	 * @param materialName the name of the material that should be banned or unbanned from the
-	 * given purpose.
+	 * @param materialName the name of the material that should be banned or unbanned from
+	 * the given purpose.
 	 * @return 0 if the operation fails, 1 if the material was previously not banned and
 	 * now is banned, or 2 if the material was previously banned and now is not.
 	 */
