@@ -85,7 +85,7 @@ public final class MaterialUtil {
 	 *
 	 * @param purpose the activity that the banned material is not allowed for ("crafting"
 	 * for materials that can't be crafted, etc.).
-	 * @param material the name of the material that should be banned or unbanned from the
+	 * @param materialName the name of the material that should be banned or unbanned from the
 	 * given purpose.
 	 * @return 0 if the operation fails, 1 if the material was previously not banned and
 	 * now is banned, or 2 if the material was previously banned and now is not.
@@ -151,7 +151,7 @@ public final class MaterialUtil {
 	 *
 	 * @param purpose the purpose to query for.
 	 * @return the materials that are banned from the given purpose.
-	 * @see CraftBanPlugin#bannedMaterialsMap
+	 * @see #bannedMaterialsMap
 	 */
 	public static PersistentList<Material> getBannedList(String purpose) {
 		return MaterialUtil.bannedMaterialsMap.get(purpose);
@@ -162,7 +162,7 @@ public final class MaterialUtil {
 	 * initialization
 	 *
 	 * @param owner the plugin that owns the banned material data files.
-	 * @see CraftBanPlugin#bannedMaterialsMap
+	 * @see #bannedMaterialsMap
 	 */
 	protected static void populateBannedMaterialsMap(SimplePlugin owner) {
 		MaterialUtil.bannedMaterialsMap = new HashMap<String, PersistentList<Material>>();
