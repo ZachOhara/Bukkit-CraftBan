@@ -58,7 +58,7 @@ public class MaterialsListener implements Listener {
 
 	/**
 	 * Schedules a task for the next 'tick' that will check the contents of a furnace. The
-	 * scheduling is necessary over checking now, because if the click event was a player
+	 * scheduling is necessary instead of checking now, because if the click event was a player
 	 * placing an item into a furnace, the item will not be registered with the furnace
 	 * until the next tick.
 	 *
@@ -77,7 +77,7 @@ public class MaterialsListener implements Listener {
 	 * @param event the event to check.
 	 * @return {@code true} if the event did not involve the use of any banned materials,
 	 * or {@code false} if the event did use banned materials and the consequences were
-	 * handles accordingly.
+	 * handled accordingly.
 	 */
 	private static boolean checkInventoryEvent(InventoryClickEvent event) {
 		if (event.getInventory() instanceof FurnaceInventory) {
@@ -97,8 +97,8 @@ public class MaterialsListener implements Listener {
 	}
 
 	/**
-	 * Checks that a given {@code ItemStack} is not banned from the given activity. If the
-	 * {@code ItemStack} is banned, this method will report the misuse to the player who
+	 * Checks that a given {@code ItemStack} material is not banned from the given activity. If the
+	 * material is banned, this method will report the misuse to the player who
 	 * attempted the activity, and to all the admins on the server.
 	 *
 	 * @param banlist the name of the activty to check the material against.
@@ -106,7 +106,7 @@ public class MaterialsListener implements Listener {
 	 * @param clicker the player that tried to do the activity.
 	 * @param reportActivity the name of the activity, in a form that will be reported to
 	 * the admins and to the player.
-	 * @return {@code true} if no banned materials were found, or {@code false} if baanned
+	 * @return {@code true} if no banned materials were found, or {@code false} if banned
 	 * materials were found, and appropriate messages were sent to the player and to the
 	 * admins.
 	 */
@@ -121,12 +121,12 @@ public class MaterialsListener implements Listener {
 	}
 
 	/**
-	 * Moves the given {@code ItemStack} out of any given inventory, and into the inventory
+	 * Moves the given {@code ItemStack} out of the given inventory, and into the inventory
 	 * of the given player.
 	 *
-	 * @param removefrom the {@code Inventory} to remove the {@code ItemStack} from.
+	 * @param removefrom the {@code Inventory} to remove the given {@code ItemStack} from.
 	 * @param stack the {@code ItemStack} to move.
-	 * @param returnto the {@code Player} to move the {@code ItemStack} to.
+	 * @param returnto the {@code Player} to move the given {@code ItemStack} to.
 	 */
 	private static void removeOffendingItem(Inventory removefrom, ItemStack stack, Player returnto) {
 		returnto.getInventory().addItem(stack);
@@ -157,6 +157,8 @@ public class MaterialsListener implements Listener {
 	 * {@code InventoryClickEvent}. When the {@link #run()} method is called, the event
 	 * will be checked for compliance with the current list of banned materials, and any
 	 * violation will be handled accordingly.
+	 * 
+	 * @see MaterialsListener#checkInventoryEvent(InventoryClickEvent)
 	 */
 	public static class ScheduledInventoryCheck implements Runnable {
 

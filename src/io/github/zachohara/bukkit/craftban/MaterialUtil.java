@@ -26,7 +26,7 @@ import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
 import org.bukkit.Material;
 
 /**
- * The {@code MaterialUtil} class contains some static methods that simplify interactions
+ * The {@code MaterialUtil} class contains static methods that oversee all interactions
  * with the lists of banned materials.
  *
  * @author Zach Ohara
@@ -158,7 +158,7 @@ public final class MaterialUtil {
 	}
 
 	/**
-	 * Populates the map of banned materials.
+	 * Populates the map of banned materials. This method is only called during plugin initialization
 	 *
 	 * @param owner the plugin that owns the banned material data files.
 	 * @see CraftBanPlugin#bannedMaterialsMap
