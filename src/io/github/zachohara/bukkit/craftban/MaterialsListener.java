@@ -18,7 +18,7 @@ package io.github.zachohara.bukkit.craftban;
 
 import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
 import io.github.zachohara.bukkit.simpleplugin.util.PlayerUtil;
-import io.github.zachohara.bukkit.simpleplugin.util.StringUtil;
+import io.github.zachohara.bukkit.simpleplugin.util.StringParser;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -144,9 +144,9 @@ public class MaterialsListener implements Listener {
 	 */
 	private static void reportBannedMaterial(Player clicker, String material, String reportActivity) {
 		String playerReport =
-				StringUtil.parseError("You cannot " + reportActivity + " @name(" + material + ")!", null);
+				StringParser.parseError("You cannot " + reportActivity + " @name(" + material + ")!", null);
 		String adminReport =
-				StringUtil.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
+				StringParser.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
 						+ " @name(" + material + ")!", null);
 		clicker.sendMessage(playerReport);
 		PlayerUtil.sendAllAdmins(adminReport);
