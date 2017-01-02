@@ -16,14 +16,14 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import io.github.zachohara.bukkit.simpleplugin.command.CommandInstance;
-import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
-import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Material;
+
+import io.github.zachohara.bukkit.simpleplugin.command.CommandInstance;
+import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
 
 /**
  * The {@code MaterialUtil} class contains static methods that oversee all interactions
@@ -59,7 +59,8 @@ public final class MaterialUtil {
 	 * "crafting", etc).
 	 * @return {@code true} if the operation was successful; {@code false} otherwise.
 	 */
-	public static boolean toggleMaterialBan(CommandInstance instance, String purpose, String reportPurpose) {
+	public static boolean toggleMaterialBan(CommandInstance instance, String purpose,
+			String reportPurpose) {
 		String input = instance.getArguments()[0];
 		Material material = Material.matchMaterial(input);
 		String materialName = null;
@@ -68,7 +69,8 @@ public final class MaterialUtil {
 		}
 		int result = MaterialUtil.toggleMaterialBan(purpose, materialName);
 		if (result == 0) {
-			instance.sendError("@name(" + input + ") could not be banned from being " + reportPurpose);
+			instance.sendError(
+					"@name(" + input + ") could not be banned from being " + reportPurpose);
 		} else if (result == 1) {
 			instance.sendMessage("@name(" + materialName + ") was successfully banned from being "
 					+ reportPurpose);
@@ -116,7 +118,8 @@ public final class MaterialUtil {
 	 * "crafting", etc).
 	 * @return {@code true} if the operation was successful; {@code false} otherwise.
 	 */
-	public static boolean listBannedMaterials(CommandInstance instance, String purpose, String reportPurpose) {
+	public static boolean listBannedMaterials(CommandInstance instance, String purpose,
+			String reportPurpose) {
 		String report = "The following materials cannot be " + reportPurpose + ": ";
 		PersistentList<Material> banned = MaterialUtil.getBannedList(purpose);
 		if (banned == null) {

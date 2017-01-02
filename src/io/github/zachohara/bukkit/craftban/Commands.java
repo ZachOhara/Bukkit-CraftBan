@@ -53,7 +53,7 @@ public enum Commands implements CommandSet {
 	private Commands(Properties p) {
 		this.properties = p;
 	}
-	
+
 	@Override
 	public Properties getProperties() {
 		return this.properties;
@@ -90,7 +90,8 @@ public enum Commands implements CommandSet {
 
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialUtil.toggleMaterialBan(instance, "smeltfueling", "used as fuel for smelting");
+			return MaterialUtil.toggleMaterialBan(instance, "smeltfueling",
+					"used as fuel for smelting");
 		}
 
 	}
@@ -126,7 +127,8 @@ public enum Commands implements CommandSet {
 
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
-			return MaterialUtil.listBannedMaterials(instance, "smeltfueling", "used as fuel for smelting");
+			return MaterialUtil.listBannedMaterials(instance, "smeltfueling",
+					"used as fuel for smelting");
 		}
 
 	}

@@ -16,10 +16,6 @@
 
 package io.github.zachohara.bukkit.craftban;
 
-import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
-import io.github.zachohara.bukkit.simpleplugin.util.PlayerUtil;
-import io.github.zachohara.bukkit.simpleplugin.util.StringParser;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -30,6 +26,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.util.PlayerUtil;
+import io.github.zachohara.bukkit.simpleplugin.util.StringParser;
 
 /**
  * A {@code MaterialsListener} is a {@code Listener} that listens for inventory clicks and
@@ -51,7 +51,8 @@ public class MaterialsListener implements Listener {
 		PersistentList<Material> banned = MaterialUtil.getBannedList("crafting");
 		Material m = event.getRecipe().getResult().getType();
 		if (banned.contains(m)) {
-			MaterialsListener.reportBannedMaterial((Player) event.getWhoClicked(), m.name(), "craft");
+			MaterialsListener.reportBannedMaterial((Player) event.getWhoClicked(), m.name(),
+					"craft");
 			event.setCancelled(true);
 		}
 	}
@@ -67,7 +68,8 @@ public class MaterialsListener implements Listener {
 	 */
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		Bukkit.getScheduler().runTask(CraftBanPlugin.getActivePlugin(), new ScheduledInventoryCheck(event));
+		Bukkit.getScheduler().runTask(CraftBanPlugin.getActivePlugin(),
+				new ScheduledInventoryCheck(event));
 	}
 
 	/**
@@ -83,11 +85,12 @@ public class MaterialsListener implements Listener {
 		if (event.getInventory() instanceof FurnaceInventory) {
 			FurnaceInventory furnace = (FurnaceInventory) event.getInventory();
 			Player p = (Player) event.getWhoClicked();
-			if ( !MaterialsListener.checkItemStackContents("smelting", furnace.getSmelting(), p, "smelt")) {
+			if (!MaterialsListener.checkItemStackContents("smelting", furnace.getSmelting(), p,
+					"smelt")) {
 				MaterialsListener.removeOffendingItem(furnace, furnace.getSmelting(), p);
 				return false;
 			}
-			if ( !MaterialsListener.checkItemStackContents("smeltfueling", furnace.getFuel(), p,
+			if (!MaterialsListener.checkItemStackContents("smeltfueling", furnace.getFuel(), p,
 					"fuel a furnace with")) {
 				MaterialsListener.removeOffendingItem(furnace, furnace.getFuel(), p);
 				return false;
@@ -128,7 +131,8 @@ public class MaterialsListener implements Listener {
 	 * @param stack the {@code ItemStack} to move.
 	 * @param returnto the {@code Player} to move the given {@code ItemStack} to.
 	 */
-	private static void removeOffendingItem(Inventory removefrom, ItemStack stack, Player returnto) {
+	private static void removeOffendingItem(Inventory removefrom, ItemStack stack,
+			Player returnto) {
 		returnto.getInventory().addItem(stack);
 		removefrom.remove(stack);
 	}
@@ -142,12 +146,15 @@ public class MaterialsListener implements Listener {
 	 * @param material the name of the material that was used.
 	 * @param reportActivity the activity that the player attempted but was blocked from.
 	 */
-	private static void reportBannedMaterial(Player clicker, String material, String reportActivity) {
+	private static void reportBannedMaterial(Player clicker, String material,
+			String reportActivity) {
 		String playerReport =
-				StringParser.parseError("You cannot " + reportActivity + " @name(" + material + ")!", null);
+				StringParser.parseError(
+						"You cannot " + reportActivity + " @name(" + material + ")!", null);
 		String adminReport =
-				StringParser.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
-						+ " @name(" + material + ")!", null);
+				StringParser
+						.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
+								+ " @name(" + material + ")!", null);
 		clicker.sendMessage(playerReport);
 		PlayerUtil.sendAllAdmins(adminReport);
 	}
