@@ -176,9 +176,6 @@ public class MaterialsListener implements Listener {
 			this.event = event;
 		}
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public void run() {
 			MaterialsListener.checkInventoryEvent(this.event);

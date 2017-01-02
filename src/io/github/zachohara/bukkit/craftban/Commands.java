@@ -53,10 +53,7 @@ public enum Commands implements CommandSet {
 	private Commands(Properties p) {
 		this.properties = p;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+	
 	@Override
 	public Properties getProperties() {
 		return this.properties;
@@ -67,9 +64,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BanCraft extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "crafting", "crafted");
@@ -82,9 +76,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BanSmelt extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "smelting", "smelted");
@@ -97,9 +88,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BanFuel extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.toggleMaterialBan(instance, "smeltfueling", "used as fuel for smelting");
@@ -112,9 +100,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BannedCraftList extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "crafting", "crafted");
@@ -127,9 +112,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BannedSmeltList extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "smelting", "smelted");
@@ -142,9 +124,6 @@ public enum Commands implements CommandSet {
 	 */
 	private static class BannedFuelList extends Implementation {
 
-		/**
-		 * {@inheritDoc}
-		 */
 		@Override
 		public boolean doPlayerCommand(CommandInstance instance) {
 			return MaterialUtil.listBannedMaterials(instance, "smeltfueling", "used as fuel for smelting");

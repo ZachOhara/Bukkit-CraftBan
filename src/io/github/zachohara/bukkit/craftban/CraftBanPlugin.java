@@ -32,9 +32,6 @@ public class CraftBanPlugin extends SimplePlugin {
 	 */
 	private static CraftBanPlugin activePlugin;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void onEnable() {
 		super.onEnable();
@@ -53,9 +50,6 @@ public class CraftBanPlugin extends SimplePlugin {
 		return CraftBanPlugin.activePlugin;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Class<? extends CommandSet> getCommandSet() {
 		return Commands.class;
