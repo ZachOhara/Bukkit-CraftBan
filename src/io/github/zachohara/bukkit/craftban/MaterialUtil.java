@@ -20,9 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Material;
+import org.bukkit.command.CommandException;
 
 import io.github.zachohara.bukkit.simpleplugin.command.CommandInstance;
-import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.fileio.persistence.PersistentList;
 import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
 
 /**
@@ -70,7 +71,7 @@ public final class MaterialUtil {
 		int result = MaterialUtil.toggleMaterialBan(purpose, materialName);
 		if (result == 0) {
 			instance.sendError(
-					"@name(" + input + ") could not be banned from being " + reportPurpose);
+					"@name(" + input + ") is not a valid material");
 		} else if (result == 1) {
 			instance.sendMessage("@name(" + materialName + ") was successfully banned from being "
 					+ reportPurpose);
@@ -94,8 +95,10 @@ public final class MaterialUtil {
 	 */
 	public static int toggleMaterialBan(String purpose, String materialName) {
 		PersistentList<Material> banned = MaterialUtil.getBannedList(purpose);
-		Material material = Material.matchMaterial(materialName);
-		if (banned == null) {
+		Material material;
+		try {
+			material = Material.matchMaterial(materialName);
+		} catch (CommandException e) {
 			return 0;
 		}
 		if (banned.remove(material)) {

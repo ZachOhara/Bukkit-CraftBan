@@ -26,16 +26,9 @@ import io.github.zachohara.bukkit.simpleplugin.plugin.SimplePlugin;
  */
 public class CraftBanPlugin extends SimplePlugin {
 
-	/**
-	 * The currently-active instance of {@code CraftBanPlugin} that is being run on the
-	 * server.
-	 */
-	private static CraftBanPlugin activePlugin;
-
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		CraftBanPlugin.activePlugin = this;
 		MaterialUtil.populateBannedMaterialsMap(this);
 		this.getServer().getPluginManager().registerEvents(new MaterialsListener(), this);
 	}
@@ -47,7 +40,7 @@ public class CraftBanPlugin extends SimplePlugin {
 	 * @see #activePlugin
 	 */
 	public static CraftBanPlugin getActivePlugin() {
-		return CraftBanPlugin.activePlugin;
+		return (CraftBanPlugin) SimplePlugin.getPluginInstance(CraftBanPlugin.class);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.zachohara.bukkit.simpleplugin.persistence.PersistentList;
+import io.github.zachohara.bukkit.simpleplugin.fileio.persistence.PersistentList;
 import io.github.zachohara.bukkit.simpleplugin.util.PlayerUtil;
 import io.github.zachohara.bukkit.simpleplugin.util.StringParser;
 
@@ -149,12 +149,10 @@ public class MaterialsListener implements Listener {
 	private static void reportBannedMaterial(Player clicker, String material,
 			String reportActivity) {
 		String playerReport =
-				StringParser.parseError(
-						"You cannot " + reportActivity + " @name(" + material + ")!", null);
+				StringParser.parseError("You cannot " + reportActivity + " @name(" + material + ")!");
 		String adminReport =
-				StringParser
-						.parseString("@name(" + clicker.getName() + ") tried to " + reportActivity
-								+ " @name(" + material + ")!", null);
+				StringParser.parseMessage("@name(" + clicker.getName() + ") tried to " + reportActivity
+								+ " @name(" + material + ")!");
 		clicker.sendMessage(playerReport);
 		PlayerUtil.sendAllAdmins(adminReport);
 	}
